@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>PANEL VRS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://files.catbox.moe/197nmb.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Courier New', monospace;
+      color: #00ffcc;
+      text-align: center;
+    }
+    .hidden { display: none; }
+    .container { margin-top: 80px; }
+    .box {
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #00ffcc;
+      padding: 20px;
+      border-radius: 15px;
+      display: inline-block;
+      box-shadow: 0 0 20px red;
+      animation: fadeIn 1s ease;
+    }
+    h1 {
+      text-shadow: 2px 2px 8px red;
+      font-size: 28px;
+    }
+    input[type="text"], input[type="password"] {
+      padding: 10px;
+      margin: 10px;
+      width: 250px;
+      border-radius: 8px;
+      border: none;
+      background: #111;
+      color: white;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+    button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: #ff0000;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 12px #00ffcc;
+      margin-top: 10px;
+    }
+    button:hover {
+      transform: scale(1.05);
+      background: #cc0000;
+    }
+    .switch-btn {
+      background: #111;
+      border: 1px solid #00ffcc;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 12px;
+      color: #00ffcc;
+      transition: 0.3s;
+    }
+    .switch-btn.on {
+      background: #00ffcc;
+      color: black;
+      box-shadow: 0 0 20px #00ffcc;
+    }
+    .switch-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    #status {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: red;
+      text-shadow: 0 0 10px red;
+      animation: glitch 1s infinite;
+    }
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-1px, 1px); }
+      40% { transform: translate(1px, -1px); }
+      60% { transform: translate(-1px, -2px); }
+      80% { transform: translate(2px, 1px); }
+      100% { transform: translate(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- LOGIN -->
+    <div class="box" id="login-box">
+      <h1>LOGIN PANEL VRS</h1>
+      <input type="text" id="username" placeholder="Nama File"><br>
+      <input type="password" id="password" placeholder="Password"><br>
+      <button onclick="login()">LOGIN</button>
+    </div>
+
+    <!-- PANEL -->
+    <div class="box" id="panel-box">
+      <h1>PANEL HACKER VRS</h1>
+      <button class="switch-btn" id="aimlock-btn" onclick="toggle(this)" disabled>AIMLOCK HS VRS 80%: OFF</button><br>
+      <button class="switch-btn" id="stabilizer-btn" onclick="toggle(this)" disabled>STABILIZER BY VRS: OFF</button><br>
+      <button class="switch-btn" id="antiban-btn" onclick="toggle(this)" disabled>ANTIBAN: OFF</button><br>
+      <div id="status" class="hidden">Silahkan buka aplikasi FF atau FF MAX-nya</div>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById('username').value.toLowerCase();
+      const pass = document.getElementById('password').value;
+
+      if ((user === "pecah" && pass === "121111") || (user === "vrshack" && pass === "VRSHACK")) {
+        document.getElementById("login-box").classList.add("hidden");
+        // Aktifkan tombol
+        ['aimlock-btn', 'stabilizer-btn', 'antiban-btn'].forEach(id => {
+          document.getElementById(id).disabled = false;
+        });
+      } else {
+        alert("Username atau password salah!");
+      }
+    }
+
+    let toggles = {
+      "aimlock-btn": false,
+      "stabilizer-btn": false,
+      "antiban-btn": false
+    };
+
+    function toggle(btn) {
+      const id = btn.id;
+      toggles[id] = !toggles[id];
+      btn.classList.toggle("on");
+      btn.textContent = btn.textContent.split(":")[0] + ": " + (toggles[id] ? "ON" : "OFF");
+
+      if (toggles["aimlock-btn"] && toggles["stabilizer-btn"] && toggles["antiban-btn"]) {
+        document.getElementById("status").classList.remove("hidden");
+        setTimeout(() => {
+          window.location.href = "freefire://"; // arahkan ke FF
+        }, 3000);
+      }
+    }
+  </script>
+</body>
+</html>
